@@ -215,42 +215,124 @@ export default function MarkitdownPage() {
             </div>
           </div>
 
-          {/* SEO content section */}
-          {status === "idle" && (
-            <section className="mt-16 pt-10 border-t border-slate-100">
-              <p className="label-mono mb-6">// frequently asked</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                <div>
-                  <h2 className="text-[14px] font-semibold tracking-[-0.02em] text-slate-800 mb-2">
-                    Why convert files to markdown for LLMs?
-                  </h2>
-                  <p className="text-[13px] text-slate-500 leading-relaxed">
-                    LLMs consume tokens, not files. A raw PDF carries page numbers, repeated headers,
-                    and structural noise — all of which burn context window before the model reaches your content.
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-semibold tracking-[-0.02em] text-slate-800 mb-2">
-                    What makes Claude, GPT-4o, and Gemini profiles different?
-                  </h2>
-                  <p className="text-[13px] text-slate-500 leading-relaxed">
-                    Each model reads structure differently. Claude works best with{" "}
-                    <code className="text-[11px] bg-slate-100 px-1 py-0.5 rounded">&lt;document&gt;</code>{" "}
-                    XML tags. GPT-4o prefers YAML frontmatter. Gemini handles long prose without chunking.
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-[14px] font-semibold tracking-[-0.02em] text-slate-800 mb-2">
-                    Is markitdown free to use?
-                  </h2>
-                  <p className="text-[13px] text-slate-500 leading-relaxed">
-                    Yes. The free tier processes files in your browser — no upload, no account. Files up
-                    to 5 MB are supported. Pro tier with larger files and server-side quality is coming soon.
-                  </p>
-                </div>
+          {/* SEO content — always rendered */}
+          <div className="mt-20 flex flex-col gap-16">
+
+            {/* Use cases */}
+            <section className="border-t border-slate-100 pt-12">
+              <p className="label-mono mb-4">// use cases</p>
+              <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8 max-w-xl">
+                Who uses markitdown?
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {[
+                  {
+                    title: "Building RAG pipelines",
+                    desc: "Convert PDFs, DOCX, and spreadsheets into clean, chunked markdown ready to embed into Pinecone, Weaviate, or any vector database. The token-optimized output reduces embedding costs by up to 60%.",
+                    tags: ["LangChain", "LlamaIndex", "Pinecone"],
+                  },
+                  {
+                    title: "Feeding context to Claude or ChatGPT",
+                    desc: "Instead of uploading raw files and hoping the model extracts what it needs, paste clean markdown directly. Less noise means the model focuses on your actual content, not structural artefacts.",
+                    tags: ["Claude", "GPT-4o", "Gemini"],
+                  },
+                  {
+                    title: "Processing research papers and reports",
+                    desc: "Academic PDFs repeat headers, footers, and citations across every page. markitdown strips the repetition and gives you a clean linear text — ready to summarise, analyse, or query.",
+                    tags: ["PDF", "Research", "Summarisation"],
+                  },
+                  {
+                    title: "Preparing data for fine-tuning",
+                    desc: "Training datasets need clean, consistent text. Convert a folder of DOCX or PDF documents to uniform markdown, then feed them into your fine-tuning pipeline without manual cleanup.",
+                    tags: ["DOCX", "CSV", "Training data"],
+                  },
+                ].map((u) => (
+                  <div key={u.title} className="flex flex-col gap-3 rounded-xl border border-slate-200 p-5">
+                    <h3 className="text-[14px] font-semibold text-slate-800 tracking-[-0.01em]">{u.title}</h3>
+                    <p className="text-[13px] text-slate-500 leading-relaxed">{u.desc}</p>
+                    <div className="flex gap-1.5 flex-wrap">
+                      {u.tags.map((t) => (
+                        <span key={t} className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-mono text-slate-500">{t}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </section>
-          )}
+
+            {/* Supported formats */}
+            <section className="border-t border-slate-100 pt-12">
+              <p className="label-mono mb-4">// supported formats</p>
+              <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+                Every major file type, one tool.
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-slate-200 rounded-xl overflow-hidden">
+                {[
+                  { fmt: "PDF", detail: "Text extraction from any PDF. Strips page numbers, headers, footers that repeat every page.", save: "Up to 58% fewer tokens" },
+                  { fmt: "DOCX", detail: "Full Microsoft Word support. Preserves headings, bold, tables, and lists. Strips XML markup.", save: "Up to 41% fewer tokens" },
+                  { fmt: "XLSX / CSV", detail: "Spreadsheets become clean markdown tables. Multi-sheet XLSX files get one section per sheet.", save: "Up to 63% fewer tokens" },
+                  { fmt: "Images", detail: "OCR extracts text from JPG, PNG, WebP, and TIFF. Runs entirely in your browser via WebAssembly.", save: "Up to 34% fewer tokens" },
+                ].map((f, i) => (
+                  <div key={f.fmt} className={`p-5 flex flex-col gap-2 ${i < 3 ? "border-r border-slate-200" : ""}`}>
+                    <span className="font-mono text-[13px] font-semibold text-blue-600">{f.fmt}</span>
+                    <p className="text-[12px] text-slate-500 leading-relaxed">{f.detail}</p>
+                    <span className="text-[10px] font-mono text-emerald-600 font-medium">{f.save}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* LLM profiles explained */}
+            <section className="border-t border-slate-100 pt-12">
+              <p className="label-mono mb-4">// model profiles</p>
+              <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-2">
+                Why does formatting matter per model?
+              </h2>
+              <p className="text-[14px] text-slate-500 mb-8 max-w-2xl leading-relaxed">
+                Each LLM was trained on different data and has different preferences for how context is structured. Using the wrong format doesn&apos;t cause failure — it just wastes tokens on structure the model has to mentally discard.
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                {[
+                  { model: "🟣 Claude", context: "200K tokens", style: "XML tags like <document> and <section> match how Claude was trained to parse long-context documents. Anthropic recommends this structure in their own prompt engineering guide.", best: "Long documents, RAG, structured analysis" },
+                  { model: "🟢 GPT-4o", context: "128K tokens", style: "YAML frontmatter and standard ATX headings (## H2) match GPT-4o's markdown training. XML tags add noise. Aggressive empty-line stripping saves tokens without losing structure.", best: "Chat completion, code tasks, summarisation" },
+                  { model: "🔵 Gemini", context: "1M tokens", style: "With a 1M token context window, chunking is rarely needed. Clean prose with consistent heading hierarchy is sufficient — Gemini handles long continuous documents better than most models.", best: "Very long documents, whole-codebase analysis" },
+                ].map((m) => (
+                  <div key={m.model} className="flex flex-col gap-3 rounded-xl border border-slate-200 p-5">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[14px] font-semibold text-slate-800">{m.model}</span>
+                      <span className="font-mono text-[10px] text-slate-400">{m.context}</span>
+                    </div>
+                    <p className="text-[12px] text-slate-500 leading-relaxed">{m.style}</p>
+                    <p className="text-[11px] font-mono text-blue-500">Best for: {m.best}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* FAQ */}
+            <section className="border-t border-slate-100 pt-12 pb-4">
+              <p className="label-mono mb-4">// faq</p>
+              <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+                Frequently asked questions
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+                {[
+                  { q: "Does my file get uploaded to a server?", a: "No. The free tier runs entirely in your browser using WebAssembly. Your files are never sent to our servers. This is especially important for confidential documents like financial reports or legal contracts." },
+                  { q: "How much can I realistically save in tokens?", a: "It depends on the file type and content. PDFs with repeated headers and footers across many pages typically save 40–60%. Spreadsheets with redundant column labels save 40–65%. Plain DOCX documents save 20–40%." },
+                  { q: "What file size is supported?", a: "The free tier supports files up to 5 MB, which covers most documents. A typical 50-page PDF is under 2 MB. Images and scanned documents may be larger — a Pro tier with 50 MB support is coming soon." },
+                  { q: "Can I use the markdown output in any LLM tool?", a: "Yes. The output is plain markdown that works everywhere — Claude, ChatGPT, Gemini, Perplexity, Cursor, Copilot, and any RAG framework like LangChain or LlamaIndex." },
+                  { q: "What is RAG-ready chunking?", a: "RAG (Retrieval-Augmented Generation) splits long documents into smaller overlapping chunks for vector search. markitdown can split your output at semantic boundaries (headings, paragraphs) and export JSON with per-chunk metadata for direct Pinecone or Weaviate ingestion." },
+                  { q: "Is this the same as Microsoft's markitdown?", a: "No. Microsoft released a Python library also called markitdown. SuperMD's markitdown is a browser-based tool with LLM-specific profiles, token savings display, and RAG-ready output — features the Python library doesn't have." },
+                ].map((item) => (
+                  <div key={item.q}>
+                    <h3 className="text-[14px] font-semibold text-slate-800 mb-2 tracking-[-0.01em]">{item.q}</h3>
+                    <p className="text-[13px] text-slate-500 leading-relaxed">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+          </div>
         </main>
 
         <Footer />

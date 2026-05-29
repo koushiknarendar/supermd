@@ -165,6 +165,96 @@ export default function SkillMdPage() {
             )}
           </div>
         </div>
+
+        {/* SEO content — always rendered */}
+        <div className="mt-20 flex flex-col gap-16">
+
+          {/* What are skills */}
+          <section className="border-t border-slate-100 pt-12">
+            <p className="label-mono mb-4">// what are claude code skills</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              <div>
+                <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-4">
+                  Custom slash commands for Claude Code.
+                </h2>
+                <p className="text-[14px] text-slate-500 leading-relaxed mb-4">
+                  Claude Code skills are markdown files stored in <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-[12px]">~/.claude/skills/</code>. Each file defines a reusable command — a trigger description, a set of steps, and optional arguments — that Claude reads and executes on demand.
+                </p>
+                <p className="text-[14px] text-slate-500 leading-relaxed">
+                  Instead of typing the same long instructions every session, you define them once in a skill file and invoke them with a short command. Skills make Claude behave like a custom CLI tailored to your exact workflow.
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-200 overflow-hidden">
+                <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50">
+                  <span className="font-mono text-[11px] text-slate-500">~/.claude/skills/deploy.md</span>
+                </div>
+                <pre className="p-4 text-[11px] font-mono text-slate-600 leading-relaxed bg-white">{`---
+name: deploy
+description: Deploy the current branch to Vercel preview
+---
+
+## When to use
+When the user asks to deploy, ship, or preview the
+current branch to Vercel.
+
+## Steps
+1. Run \`git status\` to confirm no uncommitted changes
+2. Run \`vercel\` to create a preview deployment
+3. Share the deployment URL with the user
+
+## Arguments
+The branch name to deploy (optional).
+Access via \$ARGUMENTS.`}</pre>
+              </div>
+            </div>
+          </section>
+
+          {/* Use cases */}
+          <section className="border-t border-slate-100 pt-12">
+            <p className="label-mono mb-4">// use cases</p>
+            <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+              What can you build with skills?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { title: "Deployment automation", desc: "Define a /deploy skill that runs your deployment pipeline — check git status, run vercel or fly deploy, and share the URL. One command replaces a five-step workflow.", example: "/deploy feat/new-checkout" },
+                { title: "Code review workflows", desc: "A /review skill that runs linting, checks for common mistakes in your codebase, and generates a summary. Consistent review criteria on every PR.", example: "/review src/components/Button.tsx" },
+                { title: "Database operations", desc: "Define /db:migrate, /db:seed, and /db:studio skills that run the right commands for your ORM. Claude stops confusing Prisma and Drizzle commands.", example: "/db:migrate add-user-table" },
+                { title: "Project-specific test runners", desc: "A /test skill that knows your test framework, coverage flags, and which files to watch. No more explaining 'use vitest not jest' in every session.", example: "/test src/lib/converters/" },
+              ].map((u) => (
+                <div key={u.title} className="flex flex-col gap-3 rounded-xl border border-slate-200 p-5">
+                  <h3 className="text-[14px] font-semibold text-slate-800 tracking-[-0.01em]">{u.title}</h3>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{u.desc}</p>
+                  <code className="text-[11px] font-mono text-blue-500 bg-blue-50 px-2.5 py-1.5 rounded-lg">{u.example}</code>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="border-t border-slate-100 pt-12 pb-4">
+            <p className="label-mono mb-4">// faq</p>
+            <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+              Frequently asked questions
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+              {[
+                { q: "Where do I put skill files?", a: "Save them to ~/.claude/skills/ in your home directory. Claude Code scans this folder on launch and makes all skills available across every project. You can also put skills in .claude/skills/ inside a specific project for project-scoped commands." },
+                { q: "What is $ARGUMENTS?", a: "$ARGUMENTS is a placeholder that gets replaced with whatever the user types after the skill command. For example, if your skill uses $ARGUMENTS and the user types '/deploy feat/my-branch', Claude receives 'feat/my-branch' as the argument." },
+                { q: "How many skills can I have?", a: "There's no documented limit. In practice, keeping your skill library under 20 focused skills gives Claude a clear set of commands to choose from. Too many skills with overlapping descriptions can cause Claude to invoke the wrong one." },
+                { q: "Can I share skills with my team?", a: "Yes — commit a .claude/skills/ directory to your repo. Any team member who clones the repo gets the same skills automatically. This is the recommended pattern for team-specific workflows like CI checks and deployment commands." },
+                { q: "Do skills work in all Claude interfaces?", a: "Skills are a Claude Code feature (the CLI and desktop app). They don't apply to claude.ai chat or the API. For API use cases, the skill content can be used as a system prompt instead." },
+                { q: "Can a skill call other tools or run commands?", a: "Yes. Claude Code can execute bash commands, read files, and use any tool it has access to. A skill can instruct Claude to run npm commands, call APIs, read from the filesystem, or chain multiple operations together." },
+              ].map((item) => (
+                <div key={item.q}>
+                  <h3 className="text-[14px] font-semibold text-slate-800 mb-2 tracking-[-0.01em]">{item.q}</h3>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </div>
       </main>
 
       <Footer />

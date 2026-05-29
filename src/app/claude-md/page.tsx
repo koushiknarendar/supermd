@@ -220,6 +220,129 @@ export default function ClaudeMdPage() {
             )}
           </div>
         </div>
+
+        {/* SEO content — always rendered */}
+        <div className="mt-20 flex flex-col gap-16">
+
+          {/* What is CLAUDE.md */}
+          <section className="border-t border-slate-100 pt-12">
+            <p className="label-mono mb-4">// what is claude.md</p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+              <div>
+                <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-4">
+                  The file Claude reads before it reads anything else.
+                </h2>
+                <p className="text-[14px] text-slate-500 leading-relaxed mb-4">
+                  CLAUDE.md is a special markdown file that Claude Code reads automatically at the start of every session. It tells Claude what your project is, how to run it, and how to work within it — without you repeating yourself in every prompt.
+                </p>
+                <p className="text-[14px] text-slate-500 leading-relaxed">
+                  A well-written CLAUDE.md means Claude immediately knows your tech stack, your commands, your conventions, and your architecture. It stops making assumptions. It stops suggesting the wrong framework. It stops asking questions you&apos;ve answered a hundred times.
+                </p>
+              </div>
+              <div className="rounded-xl border border-slate-200 overflow-hidden">
+                <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50">
+                  <span className="font-mono text-[11px] text-slate-500">CLAUDE.md</span>
+                </div>
+                <pre className="p-4 text-[11px] font-mono text-slate-600 leading-relaxed bg-white">{`# CLAUDE.md
+
+## Overview
+Next.js SaaS app for converting files to markdown.
+
+## Tech Stack
+- Framework: Next.js 16 (Turbopack)
+- Language: TypeScript
+- Styling: Tailwind CSS v4
+
+## Commands
+\`\`\`bash
+npm run dev    # start dev server
+npm run build  # production build
+npm run test   # run Vitest
+\`\`\`
+
+## Conventions
+- ESLint + Prettier
+- Source code in src/
+- App Router — routes are folders in app/`}</pre>
+              </div>
+            </div>
+          </section>
+
+          {/* Use cases */}
+          <section className="border-t border-slate-100 pt-12">
+            <p className="label-mono mb-4">// use cases</p>
+            <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+              When do you need a CLAUDE.md?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { title: "Starting a new project with Claude Code", desc: "Generate a CLAUDE.md on day one. Claude immediately understands your stack, your commands, and your conventions — no warmup prompts needed.", tag: "Solo dev" },
+                { title: "Onboarding Claude to an existing codebase", desc: "Paste your GitHub URL and get a CLAUDE.md that captures your real project state — not a generic template. Claude stops guessing about your architecture.", tag: "Existing projects" },
+                { title: "Consistent behaviour across sessions", desc: "Without CLAUDE.md, every new Claude session starts from zero. With it, Claude behaves consistently — same conventions, same patterns, same assumptions every time.", tag: "Teams" },
+                { title: "Reducing repeated context in prompts", desc: "Every token you spend re-explaining your stack is a token wasted. A good CLAUDE.md eliminates the preamble from every prompt and keeps your context window for actual work.", tag: "Token efficiency" },
+              ].map((u) => (
+                <div key={u.title} className="flex flex-col gap-3 rounded-xl border border-slate-200 p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="text-[14px] font-semibold text-slate-800 tracking-[-0.01em]">{u.title}</h3>
+                    <span className="shrink-0 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-mono text-blue-500">{u.tag}</span>
+                  </div>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{u.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* What gets detected */}
+          <section className="border-t border-slate-100 pt-12">
+            <p className="label-mono mb-4">// auto-detection</p>
+            <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+              What SuperMD detects from your repo.
+            </h2>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-0 border border-slate-200 rounded-xl overflow-hidden">
+              {[
+                { group: "Framework", items: ["Next.js", "React", "Vue", "Svelte", "Angular", "NestJS", "Go", "Rust", "Python"] },
+                { group: "Tooling", items: ["npm / pnpm / bun / yarn", "ESLint", "Prettier", "Biome", "TypeScript"] },
+                { group: "Testing", items: ["Vitest", "Jest", "Playwright", "Cypress"] },
+                { group: "Infrastructure", items: ["Prisma ORM", "Drizzle ORM", "Docker", "Postgres", ".env pattern"] },
+              ].map((g, i) => (
+                <div key={g.group} className={`p-5 ${i < 3 ? "border-r border-slate-200" : ""}`}>
+                  <p className="label-mono mb-3">{g.group}</p>
+                  <ul className="flex flex-col gap-1.5">
+                    {g.items.map((item) => (
+                      <li key={item} className="flex items-center gap-1.5 text-[12px] text-slate-500">
+                        <span className="h-1 w-1 rounded-full bg-blue-300 shrink-0" />{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* FAQ */}
+          <section className="border-t border-slate-100 pt-12 pb-4">
+            <p className="label-mono mb-4">// faq</p>
+            <h2 className="text-[28px] font-semibold tracking-[-0.04em] text-slate-900 mb-8">
+              Frequently asked questions
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
+              {[
+                { q: "Does Claude automatically read CLAUDE.md?", a: "Yes. Claude Code reads CLAUDE.md from your project root automatically at the start of every session. You can also have CLAUDE.md files in subdirectories for per-module context." },
+                { q: "What should go in a CLAUDE.md?", a: "The most valuable sections are: (1) a brief project overview, (2) the tech stack with versions, (3) the commands needed to run, build, and test the project, and (4) coding conventions and gotchas. Keep it under 500 tokens — longer files are less reliably followed." },
+                { q: "How often should I update my CLAUDE.md?", a: "Update it when your stack changes, when you add major dependencies, or when you notice Claude repeatedly making the same mistake. Think of it as living documentation — it should reflect the current state of your project." },
+                { q: "Can I use this for private repos?", a: "The GitHub URL tab only works for public repos. For private repos, use the Paste tab — copy your README.md and package.json and paste them in. The generator works from any text content." },
+                { q: "Can I customise the generated CLAUDE.md?", a: "Yes — the output is plain markdown. Copy it, edit it in any text editor, and paste any additional context that SuperMD couldn't detect automatically (e.g. deployment process, third-party integrations, known gotchas)." },
+                { q: "Is CLAUDE.md the same as a system prompt?", a: "Similar concept, different mechanism. A system prompt is per-conversation. CLAUDE.md is persistent across all Claude Code sessions in a project, and is read from the file system rather than passed via API. It&apos;s designed specifically for coding context." },
+              ].map((item) => (
+                <div key={item.q}>
+                  <h3 className="text-[14px] font-semibold text-slate-800 mb-2 tracking-[-0.01em]">{item.q}</h3>
+                  <p className="text-[13px] text-slate-500 leading-relaxed">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+        </div>
       </main>
 
       <Footer />
