@@ -17,10 +17,11 @@ export default function SkillMdPage() {
   const [example, setExample] = useState("")
   const [args, setArgs] = useState("")
 
-  const slug = toSlug(name) || "my-skill"
+  const slug = toSlug(name) || "skill"
   const filename = `${slug}.md`
 
-  const hasContent = name.trim() || description.trim() || steps.some((s) => s.trim())
+  const hasName = name.trim().length > 0
+  const hasContent = hasName && (description.trim() || steps.some((s) => s.trim()))
 
   const output = useMemo(() => {
     if (!hasContent) return ""
@@ -72,14 +73,18 @@ export default function SkillMdPage() {
           <div className="flex flex-col gap-5">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className={labelClass}>Skill name</label>
+                <label className={labelClass}>Skill name <span className="text-red-400">*</span></label>
                 <Input
                   placeholder="deploy-preview"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="font-mono"
+                  className={`font-mono ${!hasName && name !== "" ? "border-red-300" : ""}`}
                 />
-                {name && <p className="mt-1 text-[10px] text-slate-400 font-mono">→ {slug}.md</p>}
+                {name.trim() ? (
+                  <p className="mt-1 text-[10px] text-slate-400 font-mono">→ {slug}.md</p>
+                ) : (
+                  <p className="mt-1 text-[10px] text-red-400 font-mono">Required — sets the filename</p>
+                )}
               </div>
               <div>
                 <label className={labelClass}>One-line description</label>
