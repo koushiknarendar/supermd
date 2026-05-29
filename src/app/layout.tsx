@@ -56,6 +56,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${spaceGrotesk.variable} font-sans antialiased bg-white text-zinc-900 min-h-screen`}
       >
+        {/* Grain noise overlay — adds tactile depth to flat white */}
+        <div
+          className="grain pointer-events-none fixed inset-0 z-50"
+          style={{ opacity: 0.035, mixBlendMode: "multiply" }}
+        />
         {children}
         <Toaster position="top-center" />
       </body>

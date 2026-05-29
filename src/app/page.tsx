@@ -56,9 +56,23 @@ const TOOLS = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="relative min-h-screen bg-white overflow-x-hidden">
+      {/* Dot grid texture — fades out toward bottom */}
+      <div
+        className="dot-grid dot-grid-fade pointer-events-none absolute inset-0 z-0"
+        style={{ opacity: 0.5 }}
+      />
+
+      {/* Top accent line */}
+      <div
+        className="pointer-events-none absolute top-0 left-0 right-0 h-px z-10"
+        style={{
+          background: "linear-gradient(90deg, transparent 0%, #2563eb60 30%, #2563eb90 50%, #2563eb60 70%, transparent 100%)",
+        }}
+      />
+
       {/* Nav */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 h-14">
           <div className="flex items-center gap-2.5">
             <span className="font-semibold text-[15px] tracking-[-0.02em]" style={{ color: "#0a0f1e" }}>
@@ -91,12 +105,22 @@ export default function Home() {
         </div>
       </header>
 
-      <main className="max-w-[1200px] mx-auto px-6">
+      <main className="relative z-10 max-w-[1200px] mx-auto px-6">
         {/* Hero */}
-        <section className="pt-24 pb-20 flex flex-col items-center text-center gap-7">
+        <section className="relative pt-24 pb-20 flex flex-col items-center text-center gap-7">
+          {/* Blue glow blob behind headline */}
+          <div
+            className="pointer-events-none absolute top-8 left-1/2 -translate-x-1/2 w-[700px] h-[420px] rounded-full"
+            style={{
+              background: "radial-gradient(ellipse at center, #dbeafe 0%, #eff6ff 40%, transparent 70%)",
+              filter: "blur(40px)",
+              opacity: 0.7,
+              zIndex: -1,
+            }}
+          />
           <div
             className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[13px] font-medium"
-            style={{ borderColor: "#bfdbfe", background: "#eff6ff", color: "#2563eb" }}
+            style={{ borderColor: "#bfdbfe", background: "rgba(239,246,255,0.8)", color: "#2563eb", backdropFilter: "blur(8px)" }}
           >
             <span
               className="h-1.5 w-1.5 rounded-full animate-pulse"
@@ -145,7 +169,7 @@ export default function Home() {
         </section>
 
         {/* Stats row */}
-        <section className="border-t border-slate-200">
+        <section className="border-t border-slate-200 bg-white/60 backdrop-blur-sm">
           <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
             <TokenTicker />
             <div className="stat-box">
@@ -181,7 +205,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-0 border border-slate-200">
+            <div className="grid grid-cols-2 gap-0 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
               {FILE_SAVINGS.map((s, i) => (
                 <div
                   key={s.type}
@@ -225,7 +249,7 @@ export default function Home() {
             <p className="text-[13px] font-mono text-slate-400">[1 live · 3 coming]</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
             {TOOLS.map((tool, i) => {
               const Icon = tool.icon
               const isLive = tool.status === "live"
@@ -235,7 +259,8 @@ export default function Home() {
               return (
                 <div
                   key={tool.name}
-                  className={`p-8 flex flex-col gap-5 ${isRight ? "border-l border-slate-200" : ""} ${isBottom ? "border-t border-slate-200" : ""}`}
+                  className={`p-8 flex flex-col gap-5 transition-colors ${isRight ? "border-l border-slate-200" : ""} ${isBottom ? "border-t border-slate-200" : ""}`}
+                  style={{ background: isLive ? "rgba(239,246,255,0.25)" : "rgba(255,255,255,0.6)" }}
                 >
                   <div className="flex items-start justify-between">
                     <div
@@ -299,7 +324,15 @@ export default function Home() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 border-t border-slate-200 flex flex-col items-center text-center gap-6">
+        <section
+          className="relative py-20 border-t border-slate-200 flex flex-col items-center text-center gap-6 rounded-2xl overflow-hidden"
+          style={{ background: "linear-gradient(135deg, #f0f7ff 0%, #ffffff 50%, #f0f4ff 100%)" }}
+        >
+          {/* Decorative corner dots */}
+          <div className="pointer-events-none absolute top-6 left-6 h-2 w-2 rounded-full" style={{ background: "#2563eb", opacity: 0.2 }} />
+          <div className="pointer-events-none absolute top-6 right-6 h-2 w-2 rounded-full" style={{ background: "#2563eb", opacity: 0.2 }} />
+          <div className="pointer-events-none absolute bottom-6 left-6 h-2 w-2 rounded-full" style={{ background: "#2563eb", opacity: 0.2 }} />
+          <div className="pointer-events-none absolute bottom-6 right-6 h-2 w-2 rounded-full" style={{ background: "#2563eb", opacity: 0.2 }} />
           <p className="label-mono">// start here</p>
           <h2
             className="text-[48px] font-semibold tracking-[-0.05em] leading-[1.08] max-w-[560px]"
