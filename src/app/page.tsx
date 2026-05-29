@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, FileText, BookOpen, Wrench, Globe } from "lucide-react"
+import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain } from "lucide-react"
 import { TokenTicker } from "@/components/home/TokenTicker"
 import { Footer } from "@/components/layout/Footer"
 
@@ -52,6 +52,15 @@ const TOOLS = [
     description:
       "Paste your URL. Get spec-compliant llms.txt so any LLM can navigate your site without hallucinating your content.",
     href: "/llms-txt",
+  },
+  {
+    status: "live" as const,
+    icon: Brain,
+    name: "context.md",
+    tag: "Knowledge layer",
+    description:
+      "Build a reusable context file for any topic, domain, or project. Brief any LLM instantly without repeating yourself every session.",
+    href: "/context-md",
   },
 ]
 
@@ -247,7 +256,7 @@ export default function Home() {
                 Every MD file your AI will ever need.
               </h2>
             </div>
-            <p className="text-[13px] font-mono text-slate-400">[4 live]</p>
+            <p className="text-[13px] font-mono text-slate-400">[5 live]</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">

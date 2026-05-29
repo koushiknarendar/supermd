@@ -14,6 +14,7 @@ export function Footer() {
           >
             markitdown
           </Link>
+          <Link href="/context-md" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">context.md</Link>
           <Link href="/claude-md" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">claude.md</Link>
           <Link href="/skill-md" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">skill.md</Link>
           <Link href="/llms-txt" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">llms.txt</Link>
