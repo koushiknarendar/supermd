@@ -1,10 +1,21 @@
 "use client"
 
 export async function convertXlsx(file: File): Promise<string> {
-  const XLSX = await import("xlsx")
+  const xlsxModule = await import("xlsx")
+  // CJS default export may be nested under .default in some bundlers
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const XLSX = (xlsxModule as any).default ?? xlsxModule
 
-  const arrayBuffer = await file.arrayBuffer()
-  const workbook = XLSX.read(arrayBuffer, { type: "array" })
+  const isCSV = file.name.toLowerCase().endsWith(".csv")
+  let workbook
+
+  if (isCSV) {
+    const text = await file.text()
+    workbook = XLSX.read(text, { type: "string" })
+  } else {
+    const arrayBuffer = await file.arrayBuffer()
+    workbook = XLSX.read(arrayBuffer, { type: "array" })
+  }
 
   const sections: string[] = []
 
