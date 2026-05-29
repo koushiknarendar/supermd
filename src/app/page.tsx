@@ -27,31 +27,31 @@ const TOOLS = [
     href: "/markitdown",
   },
   {
-    status: "soon" as const,
+    status: "live" as const,
     icon: BookOpen,
     name: "claude.md",
     tag: "Codebase context",
     description:
-      "Scan your repo. Get a CLAUDE.md that gives the model exactly what it needs — structured, minimal, no fluff.",
-    href: null,
+      "Paste a GitHub URL. Get a CLAUDE.md that gives Claude exactly what it needs — framework, scripts, conventions, structure.",
+    href: "/claude-md",
   },
   {
-    status: "soon" as const,
+    status: "live" as const,
     icon: Wrench,
     name: "skill.md",
     tag: "Claude Code",
     description:
-      "Turn your runbooks and internal docs into Claude Code skill files that slot directly into your workflow.",
-    href: null,
+      "Fill the form. Get a skill.md ready to drop into Claude Code — trigger, steps, and args defined in seconds.",
+    href: "/skill-md",
   },
   {
-    status: "soon" as const,
+    status: "live" as const,
     icon: Globe,
     name: "llms.txt",
     tag: "Website indexing",
     description:
-      "Generate spec-compliant llms.txt so any LLM can navigate your site without hallucinating your content.",
-    href: null,
+      "Paste your URL. Get spec-compliant llms.txt so any LLM can navigate your site without hallucinating your content.",
+    href: "/llms-txt",
   },
 ]
 
@@ -247,7 +247,7 @@ export default function Home() {
                 Every MD file your AI will ever need.
               </h2>
             </div>
-            <p className="text-[13px] font-mono text-slate-400">[1 live · 3 coming]</p>
+            <p className="text-[13px] font-mono text-slate-400">[4 live]</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">

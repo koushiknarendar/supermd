@@ -14,12 +14,10 @@ export function Footer() {
           >
             markitdown
           </Link>
-          <Link
-            href="/pricing"
-            className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono"
-          >
-            pricing
-          </Link>
+          <Link href="/claude-md" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">claude.md</Link>
+          <Link href="/skill-md" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">skill.md</Link>
+          <Link href="/llms-txt" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">llms.txt</Link>
+          <Link href="/pricing" className="text-[12px] text-slate-400 hover:text-slate-700 transition-colors font-mono">pricing</Link>
         </div>
         <span className="label-mono">
           © {new Date().getFullYear()} supermd — generate the markdown your ai actually needs
