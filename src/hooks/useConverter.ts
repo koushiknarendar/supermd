@@ -32,6 +32,19 @@ function countTokens(text: string, backend: LLMProfile["tokenizerBackend"]): num
   }
 }
 
+// How many times more tokens a raw file costs vs clean extracted text.
+// PDFs repeat headers/footers/page numbers every page.
+// DOCX has XML markup wrapping every paragraph.
+// XLSX has repeated column headers and cell metadata.
+const NOISE_MULTIPLIER: Record<string, number> = {
+  pdf: 2.4,   // headers + footers + page numbers on every page
+  docx: 1.8,  // XML tag overhead stripped by mammoth
+  xlsx: 2.1,  // repeated column labels + cell metadata
+  image: 1.3, // OCR noise, artefacts, irregular whitespace
+  html: 1.6,  // HTML tag overhead
+  unknown: 1.8,
+}
+
 export type ConverterProgress =
   | { type: "pdf"; loaded: number; total: number }
   | { type: "ocr"; status: string; progress: number }
@@ -95,16 +108,20 @@ export function useConverter() {
       setStatus("profiling")
       const formattedMarkdown = applyProfile(rawMarkdown, profile, metadata)
 
-      // Use the same tokenizer backend for both so the comparison is apples-to-apples
       const rawTokenEstimate = countTokens(rawMarkdown, profile.tokenizerBackend)
+      // fileTokenEstimate = what you'd spend without SuperMD (raw file noise × multiplier)
+      const fileTokenEstimate = Math.round(
+        rawTokenEstimate * (NOISE_MULTIPLIER[filetype] ?? 1.8)
+      )
       const tokenCount = countTokens(formattedMarkdown, profile.tokenizerBackend)
-      const tokensSaved = Math.max(0, rawTokenEstimate - tokenCount)
+      const tokensSaved = Math.max(0, fileTokenEstimate - tokenCount)
       const contextWindowPercent = tokenCount / profile.contextWindow
       const wordCount = rawMarkdown.split(/\s+/).filter(Boolean).length
 
       setResult({
         rawMarkdown,
         formattedMarkdown,
+        fileTokenEstimate,
         rawTokenEstimate,
         tokenCount,
         tokensSaved,
@@ -128,7 +145,9 @@ export function useConverter() {
       const formattedMarkdown = applyProfile(rawMarkdownRef.current, profile, metadata)
       const rawTokenEstimate = countTokens(rawMarkdownRef.current, profile.tokenizerBackend)
       const tokenCount = countTokens(formattedMarkdown, profile.tokenizerBackend)
-      const tokensSaved = Math.max(0, rawTokenEstimate - tokenCount)
+      // Preserve the original file noise estimate — it doesn't change when switching profiles
+      const fileTokenEstimate = result.fileTokenEstimate
+      const tokensSaved = Math.max(0, fileTokenEstimate - tokenCount)
       const contextWindowPercent = tokenCount / profile.contextWindow
 
       setResult((prev) =>
@@ -137,6 +156,7 @@ export function useConverter() {
               ...prev,
               formattedMarkdown,
               rawTokenEstimate,
+              fileTokenEstimate,
               tokenCount,
               tokensSaved,
               contextWindowPercent,

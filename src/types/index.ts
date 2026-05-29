@@ -68,6 +68,8 @@ export interface ConversionMetadata {
 export interface ConversionResult {
   rawMarkdown: string
   formattedMarkdown: string
+  /** Token estimate of the file before SuperMD noise removal — the "without us" baseline */
+  fileTokenEstimate: number
   rawTokenEstimate: number
   tokenCount: number
   tokensSaved: number
