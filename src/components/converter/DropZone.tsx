@@ -9,15 +9,17 @@ const ACCEPTED_TYPES = {
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document": [".docx"],
   "application/msword": [".doc"],
   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": [".xlsx"],
-  "application/vnd.ms-excel": [".xls"],
+  "application/vnd.ms-excel": [".xls", ".csv"],
   "text/csv": [".csv"],
+  "application/csv": [".csv"],
+  "text/comma-separated-values": [".csv"],
   "application/pdf": [".pdf"],
   "image/jpeg": [".jpg", ".jpeg"],
   "image/png": [".png"],
   "image/webp": [".webp"],
   "image/tiff": [".tiff", ".tif"],
   "text/html": [".html", ".htm"],
-  "text/plain": [".txt", ".md"],
+  "text/plain": [".txt", ".md", ".csv"],
 }
 
 interface Props {
