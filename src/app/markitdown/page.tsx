@@ -71,7 +71,7 @@ export default function MarkitdownPage() {
         {/* Dot grid — matches homepage */}
         <div
           className="dot-grid dot-grid-fade pointer-events-none absolute inset-0 z-0"
-          style={{ opacity: 0.7 }}
+          style={{ opacity: 0.35 }}
         />
 
         {/* Top accent line */}
