@@ -63,7 +63,7 @@ export default function SkillMdPage() {
             Build Claude Code skill files.
           </h1>
           <p className="mt-3 text-[15px] text-slate-500 leading-relaxed max-w-2xl font-medium tracking-[-0.01em]">
-            Fill the form. Get a <code className="text-[13px] bg-slate-100 px-1.5 py-0.5 rounded font-mono">skill.md</code> ready to drop into <code className="text-[13px] bg-slate-100 px-1.5 py-0.5 rounded font-mono">~/.claude/skills/</code>. Preview updates live as you type.
+            Each skill is its own <code className="text-[13px] bg-slate-100 px-1.5 py-0.5 rounded font-mono">.md</code> file saved to <code className="text-[13px] bg-slate-100 px-1.5 py-0.5 rounded font-mono">~/.claude/skills/</code>. Fill the form, get a file named after your skill, repeat for as many skills as you need.
           </p>
         </div>
 
@@ -149,8 +149,9 @@ export default function SkillMdPage() {
               />
             </div>
 
-            <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-[12px] text-blue-700 leading-relaxed">
-              Download and save to <code className="bg-blue-100 px-1 rounded font-mono">~/.claude/skills/{filename}</code> — Claude Code picks it up automatically on next launch.
+            <div className="rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-[12px] text-blue-700 leading-relaxed flex flex-col gap-1">
+              <span>Save to <code className="bg-blue-100 px-1 rounded font-mono">~/.claude/skills/{filename}</code> — Claude Code picks it up on next launch.</span>
+              <span className="text-blue-500">Each skill is a separate file. Create as many as you need — <code className="bg-blue-100 px-1 rounded font-mono">deploy.md</code>, <code className="bg-blue-100 px-1 rounded font-mono">review.md</code>, <code className="bg-blue-100 px-1 rounded font-mono">test.md</code> — they won&apos;t conflict.</span>
             </div>
           </div>
 
@@ -178,10 +179,10 @@ export default function SkillMdPage() {
                   Custom slash commands for Claude Code.
                 </h2>
                 <p className="text-[14px] text-slate-500 leading-relaxed mb-4">
-                  Claude Code skills are markdown files stored in <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-[12px]">~/.claude/skills/</code>. Each file defines a reusable command — a trigger description, a set of steps, and optional arguments — that Claude reads and executes on demand.
+                  Claude Code skills are individual <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-[12px]">.md</code> files stored in <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-[12px]">~/.claude/skills/</code>. Each file is <strong className="text-slate-700 font-medium">one skill</strong> — named after what it does (<code className="bg-slate-100 px-1 rounded font-mono text-[11px]">deploy.md</code>, <code className="bg-slate-100 px-1 rounded font-mono text-[11px]">review.md</code>, <code className="bg-slate-100 px-1 rounded font-mono text-[11px]">test.md</code>). You can have as many as you need — they don&apos;t conflict because each has a unique filename.
                 </p>
                 <p className="text-[14px] text-slate-500 leading-relaxed">
-                  Instead of typing the same long instructions every session, you define them once in a skill file and invoke them with a short command. Skills make Claude behave like a custom CLI tailored to your exact workflow.
+                  Instead of typing the same instructions every session, define them once and invoke them with a short command. Skills make Claude behave like a custom CLI tailored to your exact workflow.
                 </p>
               </div>
               <div className="rounded-xl border border-slate-200 overflow-hidden">
