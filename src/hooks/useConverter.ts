@@ -87,8 +87,12 @@ export function useConverter() {
         rawMarkdown = await convertImageClient(file, (p) => {
           setProgress({ type: "ocr", status: p.status, progress: p.progress })
         })
+      } else if (filetype === "html") {
+        const TurndownService = await import("turndown")
+        const td = new TurndownService.default({ headingStyle: "atx", bulletListMarker: "-" })
+        const html = await file.text()
+        rawMarkdown = td.turndown(html)
       } else {
-        // Try to read as plain text
         rawMarkdown = await file.text()
       }
 

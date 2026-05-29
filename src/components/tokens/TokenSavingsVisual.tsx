@@ -16,9 +16,10 @@ function fmt(n: number) {
 
 export function TokenSavingsVisual({ result, profile }: Props) {
   const { fileTokenEstimate, tokenCount, tokensSaved } = result
-  const savingsPct = fileTokenEstimate > 0
+  const savingsPctRaw = fileTokenEstimate > 0
     ? Math.round((tokensSaved / fileTokenEstimate) * 100)
     : 0
+  const savingsPct = savingsPctRaw
 
   const pricing = MODEL_PRICING.find((p) => p.model === profile.model)
   const costSaved = pricing ? (tokensSaved / 1_000_000) * pricing.inputPricePerMillionTokens : 0
@@ -38,7 +39,7 @@ export function TokenSavingsVisual({ result, profile }: Props) {
             </span>
           </div>
           <p className="text-[32px] font-bold tracking-[-0.04em] leading-none text-emerald-600">
-            -{savingsPct}%
+            {savingsPct < 1 ? "<1" : `-${savingsPct}`}%
           </p>
           <p className="font-mono text-[10px] text-slate-400">
             {p}{fmt(tokensSaved)} of {p}{fmt(fileTokenEstimate)} tok
