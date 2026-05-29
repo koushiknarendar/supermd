@@ -95,7 +95,8 @@ export function useConverter() {
       setStatus("profiling")
       const formattedMarkdown = applyProfile(rawMarkdown, profile, metadata)
 
-      const rawTokenEstimate = estimateTokens(rawMarkdown)
+      // Use the same tokenizer backend for both so the comparison is apples-to-apples
+      const rawTokenEstimate = countTokens(rawMarkdown, profile.tokenizerBackend)
       const tokenCount = countTokens(formattedMarkdown, profile.tokenizerBackend)
       const tokensSaved = Math.max(0, rawTokenEstimate - tokenCount)
       const contextWindowPercent = tokenCount / profile.contextWindow
@@ -125,7 +126,7 @@ export function useConverter() {
     (profile: LLMProfile, metadata: ConversionMetadata) => {
       if (!rawMarkdownRef.current || !result) return
       const formattedMarkdown = applyProfile(rawMarkdownRef.current, profile, metadata)
-      const rawTokenEstimate = estimateTokens(rawMarkdownRef.current)
+      const rawTokenEstimate = countTokens(rawMarkdownRef.current, profile.tokenizerBackend)
       const tokenCount = countTokens(formattedMarkdown, profile.tokenizerBackend)
       const tokensSaved = Math.max(0, rawTokenEstimate - tokenCount)
       const contextWindowPercent = tokenCount / profile.contextWindow

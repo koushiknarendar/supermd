@@ -27,7 +27,7 @@ body {
 
 /* Dot grid texture — applied to the page wrapper */
 .dot-grid {
-  background-image: radial-gradient(circle, #cbd5e1 1px, transparent 1px);
+  background-image: radial-gradient(circle, #94a3b8 1.5px, transparent 1.5px);
   background-size: 28px 28px;
 }
 

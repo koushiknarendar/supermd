@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, FileText, BookOpen, Wrench, Globe } from "lucide-react"
 import { TokenTicker } from "@/components/home/TokenTicker"
+import { Footer } from "@/components/layout/Footer"
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://supermd.dev" },
@@ -60,7 +61,7 @@ export default function Home() {
       {/* Dot grid texture — fades out toward bottom */}
       <div
         className="dot-grid dot-grid-fade pointer-events-none absolute inset-0 z-0"
-        style={{ opacity: 0.5 }}
+        style={{ opacity: 0.7 }}
       />
 
       {/* Top accent line */}
@@ -359,14 +360,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 py-8">
-        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-          <span className="text-[13px] font-medium tracking-[-0.01em]" style={{ color: "#94a3b8" }}>
-            © {new Date().getFullYear()} SuperMD
-          </span>
-          <span className="label-mono">generate the markdown your ai actually needs</span>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }
