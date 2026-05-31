@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain } from "lucide-react"
+import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain, Pencil, Code2, FileDown } from "lucide-react"
 import { TokenTicker } from "@/components/home/TokenTicker"
 import { Footer } from "@/components/layout/Footer"
 
@@ -61,6 +61,33 @@ const TOOLS = [
     description:
       "Build a reusable context file for any topic, domain, or project. Brief any LLM instantly without repeating yourself every session.",
     href: "/context-md",
+  },
+  {
+    status: "live" as const,
+    icon: Pencil,
+    name: "design.md",
+    tag: "Feature design",
+    description:
+      "Fill the form. Get a structured design doc covering context, problem, solution, and data model — ready to paste before your LLM starts coding.",
+    href: "/design-md",
+  },
+  {
+    status: "live" as const,
+    icon: Code2,
+    name: "html-to-md",
+    tag: "HTML → Markdown",
+    description:
+      "Paste HTML or drop a URL. Get clean LLM-ready markdown — nav, scripts, and noise stripped automatically.",
+    href: "/html-to-md",
+  },
+  {
+    status: "live" as const,
+    icon: FileDown,
+    name: "md-to-pdf",
+    tag: "Markdown → PDF",
+    description:
+      "Paste markdown and download a styled PDF. Headings, code blocks, and tables rendered with clean print-ready typography.",
+    href: "/md-to-pdf",
   },
 ]
 
@@ -187,7 +214,7 @@ export default function Home() {
               <span className="stat-label">max token reduction (XLSX)</span>
             </div>
             <div className="stat-box">
-              <span className="stat-number">4</span>
+              <span className="stat-number">8</span>
               <span className="stat-label">MD generators in the suite</span>
             </div>
           </div>
@@ -256,7 +283,7 @@ export default function Home() {
                 Every MD file your AI will ever need.
               </h2>
             </div>
-            <p className="text-[13px] font-mono text-slate-400">[5 live]</p>
+            <p className="text-[13px] font-mono text-slate-400">[8 live]</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
