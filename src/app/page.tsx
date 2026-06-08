@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain, Pencil, Code2, FileDown } from "lucide-react"
+import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain, Pencil, Code2, FileDown, BookMarked, ScrollText, Zap, MessageSquare, Network, Table, Plug, Paintbrush } from "lucide-react"
 import { TokenTicker } from "@/components/home/TokenTicker"
 import { Footer } from "@/components/layout/Footer"
 
@@ -89,6 +89,108 @@ const TOOLS = [
       "Paste markdown and download a styled PDF. Headings, code blocks, and tables rendered with clean print-ready typography.",
     href: "/md-to-pdf",
   },
+  {
+    status: "live" as const,
+    icon: ScrollText,
+    name: "rules.md",
+    tag: "AI editor rules",
+    description:
+      "Fill one form. Get .cursorrules, copilot-instructions.md, and .windsurfrules — formatted correctly for Cursor, GitHub Copilot, and Windsurf.",
+    href: "/rules-md",
+  },
+  {
+    status: "live" as const,
+    icon: Zap,
+    name: "compress",
+    tag: "Token reduction",
+    description:
+      "Paste any prompt or document. Filler phrases removed, redundancy stripped, whitespace cleaned — fewer tokens, same meaning. Runs in your browser.",
+    href: "/compress",
+  },
+  {
+    status: "live" as const,
+    icon: MessageSquare,
+    name: "prompt.md",
+    tag: "System prompts",
+    description:
+      "Fill the form, get a structured system prompt. Role, task, constraints, output format, and few-shot examples — formatted for Claude, GPT-4o, or Gemini.",
+    href: "/prompt-md",
+  },
+  {
+    status: "live" as const,
+    icon: Network,
+    name: "agents.md",
+    tag: "Multi-agent systems",
+    description:
+      "Define agent roles, tools, triggers, and handoff rules. Get a structured AGENTS.md any LLM or agent runtime can read to understand your system.",
+    href: "/agents-md",
+  },
+  {
+    status: "live" as const,
+    icon: Table,
+    name: "csv-to-md",
+    tag: "CSV → Markdown",
+    description:
+      "Paste any CSV — comma, tab, or semicolon separated. Get a clean markdown table LLMs can read and reason over. Auto-detects delimiter, handles quoted fields.",
+    href: "/csv-to-md",
+  },
+  {
+    status: "live" as const,
+    icon: Plug,
+    name: "api.md",
+    tag: "OpenAPI → Markdown",
+    description:
+      "Paste an OpenAPI or Swagger JSON spec. Get LLM-readable API docs — endpoints, parameters, and schemas without the JSON noise. 40–70% fewer tokens.",
+    href: "/api-md",
+  },
+  {
+    status: "live" as const,
+    icon: Paintbrush,
+    name: "style.md",
+    tag: "Design extraction",
+    description:
+      "Paste any URL. Get a style.md with the exact colors, fonts, radii, and shadows extracted from the site's CSS — so your AI can match the design precisely.",
+    href: "/style-md",
+  },
+]
+
+const GUIDES = [
+  {
+    title: "What is Tokenmaxxing?",
+    tag: "Token efficiency",
+    description: "The Silicon Valley trend that failed — and what token efficiency actually means. Includes benchmarks for 10 reduction techniques.",
+    href: "/tokenmaxxing",
+  },
+  {
+    title: "How to Save Claude Credits",
+    tag: "Claude",
+    description: "How the 5-hour rolling window works, what burns credits fastest, and 9 techniques to reduce token usage by up to 90%.",
+    href: "/save-claude-credits",
+  },
+  {
+    title: "ChatGPT Message Limit",
+    tag: "ChatGPT",
+    description: "How the 160-message rolling cap works across GPT-5.5, o3, and o4-mini — and 8 ways to get 3× more without upgrading.",
+    href: "/chatgpt-message-limit",
+  },
+  {
+    title: "PDF to Markdown for AI",
+    tag: "RAG · LLMs",
+    description: "Why PDFs waste 60–70% of your token budget, how to convert accurately, and optimal chunking strategies for RAG pipelines.",
+    href: "/pdf-to-markdown-for-ai",
+  },
+  {
+    title: "What is llms.txt?",
+    tag: "Web · AI indexing",
+    description: "844K sites have implemented it. What llms.txt actually does, which AI tools read it, and how to write one in under 30 minutes.",
+    href: "/what-is-llms-txt",
+  },
+  {
+    title: "What is Markdown?",
+    tag: "Fundamentals",
+    description: "The complete guide to .md files — syntax, use cases, why LLMs prefer it, and how format differs per model.",
+    href: "/what-is-markdown",
+  },
 ]
 
 export default function Home() {
@@ -123,6 +225,12 @@ export default function Home() {
             </span>
           </div>
           <nav className="hidden md:flex items-center gap-6">
+            <Link
+              href="#guides"
+              className="text-[14px] font-medium tracking-[-0.01em] text-slate-500 hover:text-slate-900 transition-colors"
+            >
+              Guides
+            </Link>
             <Link
               href="/pricing"
               className="text-[14px] font-medium tracking-[-0.01em] text-slate-500 hover:text-slate-900 transition-colors"
@@ -271,6 +379,68 @@ export default function Home() {
           </div>
         </section>
 
+        {/* What is Markdown — guide teaser */}
+        <section className="py-20 border-t border-slate-200">
+          <div className="rounded-2xl border border-slate-200 overflow-hidden shadow-sm" style={{ background: "linear-gradient(135deg, #f0f7ff 0%, #ffffff 60%, #f8faff 100%)" }}>
+            <div className="p-8 sm:p-10 flex flex-col sm:flex-row gap-8 items-start">
+              <div
+                className="rounded-xl p-3 shrink-0"
+                style={{ background: "#eff6ff", color: "#2563eb" }}
+              >
+                <BookMarked className="h-5 w-5" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="label-mono mb-3">// guide</p>
+                <h2
+                  className="text-[26px] font-semibold tracking-[-0.04em] leading-[1.2] mb-3"
+                  style={{ color: "#0a0f1e" }}
+                >
+                  What is Markdown?
+                </h2>
+                <p
+                  className="text-[15px] font-medium leading-[1.65] tracking-[-0.012em] max-w-xl mb-2"
+                  style={{ color: "#64748b" }}
+                >
+                  Markdown is a lightweight plain-text formatting syntax created in 2004. It uses simple symbols
+                  like <code className="bg-blue-100 px-1 rounded font-mono text-[13px] text-blue-700">#</code> for
+                  headings and <code className="bg-blue-100 px-1 rounded font-mono text-[13px] text-blue-700">**bold**</code> for
+                  emphasis — and converts to HTML, PDF, or any output format.
+                </p>
+                <p
+                  className="text-[15px] font-medium leading-[1.65] tracking-[-0.012em] max-w-xl"
+                  style={{ color: "#64748b" }}
+                >
+                  It&apos;s the de-facto format for README files, documentation sites, AI context files,
+                  and RAG pipelines — and it uses up to 58% fewer tokens than raw PDF or HTML.
+                </p>
+                <div className="mt-6">
+                  <Link href="/what-is-markdown">
+                    <button
+                      className="flex items-center gap-1.5 text-[14px] font-semibold tracking-[-0.01em] transition-all group"
+                      style={{ color: "#2563eb" }}
+                    >
+                      Read the full guide
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </button>
+                  </Link>
+                </div>
+              </div>
+              <div className="shrink-0 flex sm:flex-col gap-4 sm:gap-6 sm:border-l sm:border-slate-200 sm:pl-8">
+                {[
+                  { value: "2004", label: "Created by" },
+                  { value: ".md", label: "File extension" },
+                  { value: "−58%", label: "Fewer tokens vs PDF" },
+                ].map((s) => (
+                  <div key={s.label} className="text-center sm:text-left">
+                    <p className="text-[20px] font-semibold tracking-[-0.03em]" style={{ color: "#2563eb" }}>{s.value}</p>
+                    <p className="text-[11px] font-mono uppercase tracking-widest text-slate-400 mt-0.5">{s.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Tools */}
         <section className="py-20 border-t border-slate-200">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
@@ -283,7 +453,7 @@ export default function Home() {
                 Every MD file your AI will ever need.
               </h2>
             </div>
-            <p className="text-[13px] font-mono text-slate-400">[8 live]</p>
+            <p className="text-[13px] font-mono text-slate-400">[{TOOLS.length} live]</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
@@ -357,6 +527,49 @@ export default function Home() {
                 </div>
               )
             })}
+          </div>
+        </section>
+
+        {/* Guides */}
+        <section id="guides" className="py-20 border-t border-slate-200">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+            <div>
+              <p className="label-mono mb-4">// guides</p>
+              <h2
+                className="text-[38px] font-semibold tracking-[-0.04em] leading-[1.15]"
+                style={{ color: "#0a0f1e" }}
+              >
+                Learn how to use AI more efficiently.
+              </h2>
+            </div>
+            <p className="text-[13px] font-mono text-slate-400">[{GUIDES.length} guides]</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {GUIDES.map((guide) => (
+              <Link key={guide.href} href={guide.href} className="group">
+                <div className="h-full rounded-xl border border-slate-200 p-6 flex flex-col gap-3 hover:border-blue-200 hover:bg-blue-50/30 transition-all">
+                  <span
+                    className="text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full w-fit"
+                    style={{ background: "#eff6ff", color: "#2563eb" }}
+                  >
+                    {guide.tag}
+                  </span>
+                  <h3
+                    className="text-[15px] font-semibold tracking-[-0.02em] leading-snug"
+                    style={{ color: "#0a0f1e" }}
+                  >
+                    {guide.title}
+                  </h3>
+                  <p className="text-[13px] font-medium leading-[1.6] text-slate-500 flex-1">
+                    {guide.description}
+                  </p>
+                  <span className="flex items-center gap-1 text-[12px] font-semibold text-blue-600 mt-1">
+                    Read guide <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
