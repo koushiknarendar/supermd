@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain, Pencil, Code2, FileDown, BookMarked, ScrollText, Zap, MessageSquare, Network, Table, Plug, Paintbrush, Palette } from "lucide-react"
+import { ArrowRight, FileText, BookOpen, Wrench, Globe, Brain, Pencil, Code2, FileDown, BookMarked, ScrollText, Zap, MessageSquare, Network, Table, Plug, Paintbrush, Palette, FolderOpen } from "lucide-react"
 import { TokenTicker } from "@/components/home/TokenTicker"
 import { Footer } from "@/components/layout/Footer"
 
@@ -160,6 +160,15 @@ const TOOLS = [
     description:
       "Fill the form. Get a structured brand.md with colors, typography, voice, and values — so your AI stays on brand in every output, every session.",
     href: "/brand-md",
+  },
+  {
+    status: "live" as const,
+    icon: FolderOpen,
+    name: "project.md",
+    tag: "Brand + design",
+    description:
+      "Paste a URL to extract design tokens, fill your brand details, and download one project.md — identity, colors, CSS tokens, typography, and voice all combined.",
+    href: "/project-md",
   },
 ]
 
