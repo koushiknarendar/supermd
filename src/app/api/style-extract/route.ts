@@ -140,7 +140,12 @@ async function fetchText(url: string, type: "html" | "css"): Promise<string> {
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null)
-  const url: string = body?.url ?? ""
+  let url: string = (body?.url ?? "").trim()
+
+  // Auto-prepend https:// if no protocol given
+  if (url && !url.startsWith("http://") && !url.startsWith("https://")) {
+    url = "https://" + url
+  }
 
   if (!url || !isSafeUrl(url)) {
     return NextResponse.json({ error: "Invalid or unsafe URL." }, { status: 400 })

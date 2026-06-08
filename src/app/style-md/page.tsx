@@ -18,8 +18,11 @@ export default function StyleMdPage() {
   const [result, setResult] = useState<ExtractedDesign | null>(null)
 
   async function handleExtract() {
-    const trimmed = url.trim()
+    let trimmed = url.trim()
     if (!trimmed) { setError("Enter a URL first."); setStatus("error"); return }
+    if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
+      trimmed = "https://" + trimmed
+    }
     setError("")
     setStatus("loading")
     setResult(null)
